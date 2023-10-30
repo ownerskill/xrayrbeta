@@ -5,7 +5,7 @@ sudo ufw allow 443/tcp
 sudo ufw allow 80
 sudo ufw allow 443
 bash <(curl -Ls https://raw.githubusercontent.com/ownerskill/xrayrbeta/main/install.sh)
-read -p " Địa chỉ web(VD: https://example.com): " api_host
+read -p " Địa chỉ web(VD: https://techzpn.pro): " api_host
   [ -z "${api_host}" ] && api_host=https://example.com
 
 read -p " Khóa giao tiếp(VD: example_123): " api_key
@@ -14,7 +14,7 @@ read -p " Khóa giao tiếp(VD: example_123): " api_key
 read -p " NODE ID Cổng 80: " node_id1
   [ -z "${node_id1}" ] && node_id1=0
   
-read -p " NODE ID Cổng 443: " node_id2
+read -p " NODE ID Cổng 443 Trojan: " node_id2
   [ -z "${node_id2}" ] && node_id2=0
 rm -rf /etc/XrayR/ht4g.crt
 rm -rf /etc/XrayR/ht4g.key
