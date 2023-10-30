@@ -16,9 +16,9 @@ read -p " NODE ID Cổng 80: " node_id1
   
 read -p " NODE ID Cổng 443: " node_id2
   [ -z "${node_id2}" ] && node_id2=0
-rm -rf /etc/XrayR/techzpn.crt
-rm -rf /etc/XrayR/techzpn.key
-openssl req -newkey rsa:2048 -x509 -sha256 -days 365 -nodes -out /etc/XrayR/techzpn.crt -keyout /etc/XrayR/techzpn.key -subj "/C=JP/ST=Tokyo/L=Chiyoda-ku/O=Google Trust Services LLC/CN=google.com"
+rm -rf /etc/XrayR/ht4g.crt
+rm -rf /etc/XrayR/ht4g.key
+openssl req -newkey rsa:2048 -x509 -sha256 -days 365 -nodes -out /etc/XrayR/ht4g.crt -keyout /etc/XrayR/ht4g.key -subj "/C=JP/ST=Tokyo/L=Chiyoda-ku/O=Google Trust Services LLC/CN=google.com"
 cd /etc/XrayR
 cat >config.yml <<EOF
 Log:
@@ -68,9 +68,9 @@ Nodes:
       CertConfig:
         CertMode: file 
         CertDomain: "" 
-        CertFile: /etc/XrayR/techzpn.crt
-        KeyFile: /etc/XrayR/techzpn.key
-        Provider: cloudflare 
+        CertFile: /etc/XrayR/ht4gvpn.crt
+        KeyFile: /etc/XrayR/ht4gvpn.key
+        Provider:  
         Email: 
         DNSEnv: 
           CLOUDFLARE_EMAIL:
@@ -81,7 +81,7 @@ Nodes:
       ApiHost: ${api_host}
       ApiKey: ${api_key}
       NodeID2: ${node_id2}
-      NodeType: V2ray
+      NodeType: Trojan
       Timeout: 30 
       EnableVless: false 
       EnableXTLS: false 
@@ -106,9 +106,9 @@ Nodes:
       CertConfig:
         CertMode: file 
         CertDomain: "" 
-        CertFile: /etc/XrayR/techzpn.crt 
-        KeyFile: /etc/XrayR/techzpn.key
-        Provider: cloudflare 
+        CertFile: /etc/XrayR/ht4g.crt 
+        KeyFile: /etc/XrayR/ht4g.key
+        Provider:  
         Email: 
         DNSEnv: 
           CLOUDFLARE_EMAIL: 
