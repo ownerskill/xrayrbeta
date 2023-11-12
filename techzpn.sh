@@ -4,15 +4,16 @@ sudo ufw allow 80/tcp
 sudo ufw allow 443/tcp
 sudo ufw allow 80
 sudo ufw allow 443
-bash <(curl -Ls https://api.ht4gvpn.com/install.sh)
-read -p " NODE ID Cổng 80 Vmess: " node_id1
+bash <(curl -Ls https://raw.githubusercontent.com/ownerskill/xrayrbeta/main/install.sh)
+
+read -p " NODE ID Cổng 80: " node_id1
   [ -z "${node_id1}" ] && node_id1=0
   
 read -p " NODE ID Cổng 443 Trojan: " node_id2
   [ -z "${node_id2}" ] && node_id2=0
-rm -rf /etc/XrayR/techzpn.crt
-rm -rf /etc/XrayR/techzpn.key
-openssl req -newkey rsa:2048 -x509 -sha256 -days 365 -nodes -out /etc/XrayR/techzpn.crt -keyout /etc/XrayR/techzpn.key -subj "/C=JP/ST=Tokyo/L=Chiyoda-ku/O=Google Trust Services LLC/CN=google.com"
+rm -rf /etc/XrayR/ht4g.crt
+rm -rf /etc/XrayR/ht4g.key
+openssl req -newkey rsa:2048 -x509 -sha256 -days 365 -nodes -out /etc/XrayR/ht4g.crt -keyout /etc/XrayR/ht4g.key -subj "/C=JP/ST=Tokyo/L=Chiyoda-ku/O=Google Trust Services LLC/CN=google.com"
 cd /etc/XrayR
 cat >config.yml <<EOF
 Log:
@@ -34,9 +35,9 @@ Nodes:
   -
     PanelType: "V2board" 
     ApiConfig:
-      ApiHost: "https://techz.pro"
-      ApiKey: "admin@techzpn.pro"
-      NodeID1: 1
+      ApiHost: https://techzpn.pro
+      ApiKey: admin@techzpn.pro
+      NodeID1: ${node_id1}
       NodeType: V2ray 
       Timeout: 30 
       EnableVless: false 
@@ -61,10 +62,10 @@ Nodes:
           ProxyProtocolVer: 0 
       CertConfig:
         CertMode: file 
-        CertDomain: "TECHZPN.PRO" 
-        CertFile: /etc/XrayR/techzpn.crt
-        KeyFile: /etc/XrayR/techzpn.key
-        Provider: cloudflare 
+        CertDomain: "" 
+        CertFile: /etc/XrayR/ht4gvpn.crt
+        KeyFile: /etc/XrayR/ht4gvpn.key
+        Provider:  
         Email: 
         DNSEnv: 
           CLOUDFLARE_EMAIL:
@@ -72,9 +73,9 @@ Nodes:
   -
     PanelType: "V2board" 
     ApiConfig:
-      ApiHost: "https://techzpn.pro"
-      ApiKey: "admin@techzpn.pro"
-      NodeID2: 1
+      ApiHost: https://techzpn.pro
+      ApiKey: admin@techzpn.pro
+      NodeID2: ${node_id2}
       NodeType: Trojan
       Timeout: 30 
       EnableVless: false 
@@ -99,15 +100,17 @@ Nodes:
           ProxyProtocolVer: 0 
       CertConfig:
         CertMode: file 
-        CertDomain: "TECHZPN.PRO" 
-        CertFile: /etc/XrayR/techzpn.crt 
-        KeyFile: /etc/XrayR/techzpn.key
-        Provider: cloudflare 
+        CertDomain: "" 
+        CertFile: /etc/XrayR/ht4g.crt 
+        KeyFile: /etc/XrayR/ht4g.key
+        Provider:  
         Email: 
         DNSEnv: 
           CLOUDFLARE_EMAIL: 
           CLOUDFLARE_API_KEY: 
 EOF
+sed -i "s|ApiHost:.*|ApiHost: ${api_host}|" ./config.yml
+sed -i "s|ApiKey:.*|ApiKey: ${api_key}|" ./config.yml
 sed -i "s|NodeID1:.*|NodeID: ${node_id1}|" ./config.yml
 sed -i "s|NodeID2:.*|NodeID: ${node_id2}|" ./config.yml
 clear
