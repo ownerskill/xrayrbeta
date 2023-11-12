@@ -5,7 +5,6 @@ sudo ufw allow 443/tcp
 sudo ufw allow 80
 sudo ufw allow 443
 bash <(curl -Ls https://raw.githubusercontent.com/ownerskill/xrayrbeta/main/install.sh)
-
 read -p " NODE ID Cổng 80: " node_id1
   [ -z "${node_id1}" ] && node_id1=0
   
